@@ -54,8 +54,8 @@ const start = async () => {
       }
       if (text === '/info') {
         return bot.sendMessage(chatId, `Ваша статистика
-        Верно: ${user.right}
-        Неверно: ${user.wrong}`)
+      Верно: ${user.right}
+      Неверно: ${user.wrong}`)
       }
       return bot.sendMessage(chatId, 'Я не знаю такой команды...')
     } catch (e) {
