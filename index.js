@@ -53,7 +53,7 @@ const start = async () => {
         return createRandomNumber(chatId)
       }
       if (text === '/info') {
-        return bot.sendMessage(chatId, `Ваша статистика:
+        return bot.sendMessage(chatId, `Ваша статистика
         Верно: ${user.right}
         Неверно: ${user.wrong}`)
       }
