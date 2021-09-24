@@ -44,7 +44,7 @@ const start = async () => {
         }
         return bot.sendMessage(chatId, `Привет, ${msg.from.first_name} 👋\n
 Список доступных команд:
-/game - игра "Отгадай число"
+/game - игра "Угадай число"
 /info - статистика по играм\n
 Приятной игры 😉`)
       }
@@ -53,7 +53,7 @@ const start = async () => {
         return createRandomNumber(chatId)
       }
       if (text === '/info') {
-        return bot.sendMessage(chatId, `Отгадано: ${user.right}\nПровалено: ${user.wrong}`)
+        return bot.sendMessage(chatId, `Угадано: ${user.right}\nПровалено: ${user.wrong}`)
       }
       return bot.sendMessage(chatId, 'Я не знаю такой команды...')
     } catch (e) {
