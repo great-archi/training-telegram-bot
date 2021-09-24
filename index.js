@@ -4,7 +4,7 @@ const User = require('./models')
 const {gameOptions, againOptions} = require('./options')
 
 const mongoUrl = 'mongodb+srv://admin:Y2ld7NGM6ZpizFPA@cluster0.ytufg.mongodb.net/tgbot?retryWrites=true&w=majority'
-const token = '2039729647:AAEN0eU9ViRCwiWLZ1RmH3qpm0HGjfNmQv4'
+const token = '2030904536:AAHHxYEpLTXhJzvlMK7v3EzNSpyB_ZWHJmY'
 
 const bot = new telegramApi(token, {polling: true})
 const chats = {}
