@@ -1,12 +1,10 @@
 const telegramApi = require('node-telegram-bot-api')
 const mongoose = require('mongoose')
+const config = require('config')
 const User = require('./models')
 const {gameOptions, againOptions} = require('./options')
 
-const mongoUrl = 'mongodb+srv://admin:Y2ld7NGM6ZpizFPA@cluster0.ytufg.mongodb.net/tgbot?retryWrites=true&w=majority'
-const token = '2039729647:AAEN0eU9ViRCwiWLZ1RmH3qpm0HGjfNmQv4'
-
-const bot = new telegramApi(token, {polling: true})
+const bot = new telegramApi(config.get('token'), {polling: true})
 const chats = {}
 
 const createRandomNumber = async chatId => {
@@ -16,7 +14,7 @@ const createRandomNumber = async chatId => {
 
 const start = async () => {
   try {
-    await mongoose.connect(mongoUrl, {
+    await mongoose.connect(config.get('mongoUrl'), {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
@@ -53,9 +51,9 @@ const start = async () => {
         return createRandomNumber(chatId)
       }
       if (text === '/info') {
-        return bot.sendMessage(chatId, `Ваша статистика:
+        return bot.sendMessage(chatId, `*Ваша статистика:*
 Верно: ${user.right}
-Неверно: ${user.wrong}`)
+Неверно: ${user.wrong}`, {parse_mode: 'MarkdownV2'} )
       }
       return bot.sendMessage(chatId, 'Я не знаю такой команды...')
     } catch (e) {
@@ -63,15 +61,18 @@ const start = async () => {
     }
   })
 
-  bot.on('callback_query', async msg => {
-    const chatId = msg.message.chat.id
-    const data = msg.data
+  bot.on('callback_query', async query => {
+    const msgId = query.message.message_id
+    const chatId = query.message.chat.id
+    const data = query.data
     try {
       const user = await User.findOne({chatId})
       if (data === '/again') {
+        await bot.deleteMessage(chatId, msgId)
         return createRandomNumber(chatId)
       }
 
+      await bot.deleteMessage(chatId, msgId)
       if (Number(data) === chats[chatId]) {
         user.right++
         await bot.sendMessage(chatId, `Поздавляю! Ты угадал цифру ${chats[chatId]}`, againOptions)

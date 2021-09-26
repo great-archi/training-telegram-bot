@@ -1,0 +1,4 @@
+{
+  token: '2030904536:AAHHxYEpLTXhJzvlMK7v3EzNSpyB_ZWHJmY',
+  mongoUrl: 'mongodb+srv://admin:Y2ld7NGM6ZpizFPA@cluster0.ytufg.mongodb.net/tgbot?retryWrites=true&w=majority'
+}
